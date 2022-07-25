@@ -8,87 +8,42 @@
  * @format
  */
 
-import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<
-  PropsWithChildren<{
-    title: string;
-  }>
-> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import React, {useState} from 'react';
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+import EditTodoView from './src/Todo1/components/elements/EditTodoView';
+import Menu from './src/Todo1/components/elements/Menu';
+import TodoList from './src/Todo1/components/elements/TodoList';
+import ITodo from './src/Todo1/components/elements/TodoModel';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [data, setData] = useState<ITodo[]>([]);
+  const [isEditTodoVisible, setIsEditTodoVisible] = useState(false);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  // const addTodo = () => {
+  //   setIsEditTodoVisible(true);
+  // };
+
+  const onCloseEditTodo = () => {
+    setIsEditTodoVisible(false);
+  };
+
+  const onSaveTodo = (data: ITodo) => {
+    setData(d => [...d, data]);
+    setIsEditTodoVisible(false);
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View>
+          <Text style={styles.title}>TODO</Text>
+          <TodoList data={data} />
+          {/* <Menu onAddTodo={addTodo} /> */}
+          <EditTodoView
+            isVisible={isEditTodoVisible}
+            onClose={onCloseEditTodo}
+            onSaved={onSaveTodo}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -96,21 +51,18 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    height: '100%',
+    width: '100%',
   },
-  sectionTitle: {
+  title: {
     fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+    fontWeight: 'bold',
+    padding: 20,
+    paddingBottom: 0,
   },
 });
 
