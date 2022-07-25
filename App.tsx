@@ -43,6 +43,7 @@ const Section: React.FC<
           },
         ]}>
         {title}
+
       </Text>
       <Text
         style={[
