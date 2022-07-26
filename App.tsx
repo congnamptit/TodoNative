@@ -14,56 +14,66 @@ import EditTodoView from './src/Todo1/components/elements/EditTodoView';
 import Menu from './src/Todo1/components/elements/Menu';
 import TodoList from './src/Todo1/components/elements/TodoList';
 import ITodo from './src/Todo1/components/elements/TodoModel';
+import AppContainer from './src/Todo2/components/elements/AppContainer';
+import Navigator from './src/Todo2';
 
-const App = () => {
-  const [data, setData] = useState<ITodo[]>([]);
-  const [isEditTodoVisible, setIsEditTodoVisible] = useState(false);
-
-  // const addTodo = () => {
-  //   setIsEditTodoVisible(true);
-  // };
-
-  const onCloseEditTodo = () => {
-    setIsEditTodoVisible(false);
-  };
-
-  const onSaveTodo = (data: ITodo) => {
-    setData(d => [...d, data]);
-    setIsEditTodoVisible(false);
-  };
-
+export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View>
-          <Text style={styles.title}>TODO</Text>
-          <TodoList data={data} />
-          {/* <Menu onAddTodo={addTodo} /> */}
-          <EditTodoView
-            isVisible={isEditTodoVisible}
-            onClose={onCloseEditTodo}
-            onSaved={onSaveTodo}
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <AppContainer>
+      <Navigator />
+    </AppContainer>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    height: '100%',
-    width: '100%',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    padding: 20,
-    paddingBottom: 0,
-  },
-});
+// const App = () => {
+//   const [data, setData] = useState<ITodo[]>([]);
+//   const [isEditTodoVisible, setIsEditTodoVisible] = useState(false);
 
-export default App;
+//   // const addTodo = () => {
+//   //   setIsEditTodoVisible(true);
+//   // };
+
+//   const onCloseEditTodo = () => {
+//     setIsEditTodoVisible(false);
+//   };
+
+//   const onSaveTodo = (data: ITodo) => {
+//     setData(d => [...d, data]);
+//     setIsEditTodoVisible(false);
+//   };
+
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <ScrollView>
+//         <View>
+//           <Text style={styles.title}>TODO</Text>
+//           <TodoList data={data} />
+//           {/* <Menu onAddTodo={addTodo} /> */}
+//           <EditTodoView
+//             isVisible={isEditTodoVisible}
+//             onClose={onCloseEditTodo}
+//             onSaved={onSaveTodo}
+//           />
+//         </View>
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     backgroundColor: '#fff',
+//     height: '100%',
+//     width: '100%',
+//   },
+//   title: {
+//     fontSize: 24,
+//     fontWeight: 'bold',
+//     padding: 20,
+//     paddingBottom: 0,
+//   },
+// });
+
+// export default App;
